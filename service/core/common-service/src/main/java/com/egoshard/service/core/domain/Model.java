@@ -67,14 +67,14 @@ public class Model {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public boolean equals(Object obj) {
+    if (this == obj) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    Model model = (Model) o;
+    Model model = (Model) obj;
     return Objects.equals(active, model.active) && Objects.equals(key, model.key);
   }
 

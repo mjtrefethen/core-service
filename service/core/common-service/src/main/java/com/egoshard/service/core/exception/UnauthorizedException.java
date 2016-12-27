@@ -1,7 +1,7 @@
 package com.egoshard.service.core.exception;
 
 /**
- *
+ * Exception thrown when a service call is made without the proper authentication.
  */
 public class UnauthorizedException extends DataAccessException {
 
@@ -17,8 +17,9 @@ public class UnauthorizedException extends DataAccessException {
   }
 
   /**
-   * Constructs a new runtime exception with the specified detail message and cause.  <p>Note that
-   * the detail message associated with {@code cause} is <i>not</i> automatically incorporated in
+   * Constructs a new runtime exception with the specified detail message and cause.
+   *
+   * <p>Note that the detail message associated with {@code cause} is <i>not</i> automatically incorporated in
    * this runtime exception's detail message.
    *
    * @param message the detail message (which is saved for later retrieval by the {@link

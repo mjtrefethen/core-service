@@ -20,7 +20,7 @@ public class DataAccessException extends RuntimeException {
   /**
    * Constructs a new runtime exception with the specified detail message and
    * cause.
-   * <p>
+   *
    * <p>Note that the detail message associated with
    * {@code cause} is <i>not</i> automatically incorporated in
    * this runtime exception's detail message.
