@@ -50,6 +50,9 @@ tasks.withType(Checkstyle) {
 
 dependencies {
     compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.5.RELEASE'
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+    compile group: 'org.springframework.hateoas', name: 'spring-hateoas', version: '0.23.0.RELEASE'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.0.0-M3'
     testCompile group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.0.0-M3'
     testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.0.0-M3'
