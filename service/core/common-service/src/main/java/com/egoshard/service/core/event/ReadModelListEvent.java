@@ -34,7 +34,7 @@ public class ReadModelListEvent extends BaseRequestEvent {
    *
    * @return true if event operation should include inactive Model objects, else false.
    */
-  public boolean IncludeInactive() {
+  public boolean includeInactive() {
     return includeInactive;
   }
 
