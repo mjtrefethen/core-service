@@ -71,25 +71,17 @@ public class Model {
     if (this == obj) {
       return true;
     }
-    if (obj == null || getClass() != obj.getClass()) {
+    if (!(obj instanceof Model)) {
       return false;
     }
     Model model = (Model) obj;
-    return Objects.equals(active, model.active) && Objects.equals(key, model.key);
-  }
-
-  /**
-   * Returns a value indicating whether a Model has been persisted to data storage.
-   *
-   * @return true if the Model has been saved, else false.
-   */
-  public boolean isPersisted() {
-    return persisted;
+    return active == model.active
+        && persisted == model.persisted
+        && Objects.equals(key, model.key);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(key, active);
+    return Objects.hash(key, active, persisted);
   }
-
 }
