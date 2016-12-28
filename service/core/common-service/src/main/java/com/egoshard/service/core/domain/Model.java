@@ -58,6 +58,15 @@ public class Model {
   }
 
   /**
+   * Gets the persisted state of the model.
+   *
+   * @return true if the object has been persisted to data storage
+   */
+  public boolean isPersisted() {
+    return persisted;
+  }
+
+  /**
    * Gets the active status of a Model object.
    *
    * @return true is the model is active else false.

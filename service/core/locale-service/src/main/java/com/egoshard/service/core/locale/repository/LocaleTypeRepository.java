@@ -30,9 +30,8 @@ public interface LocaleTypeRepository {
    * Method to create or update an existing LocaleType model.
    *
    * @param localeType model object to save
-   * @return both create and update functionality return the unique identifier for the LocaleObject persisted.
    */
-  UUID save(final LocaleType localeType);
+  void save(final LocaleType localeType);
 
   /**
    * Method to deactivate an existing LocaleType model.

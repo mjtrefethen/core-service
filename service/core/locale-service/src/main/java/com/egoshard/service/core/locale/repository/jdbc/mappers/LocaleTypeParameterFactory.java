@@ -21,17 +21,18 @@ public class LocaleTypeParameterFactory extends ModelParameterFactory {
   public static MapSqlParameterSource create(OperationType operation, LocaleType localeType) {
 
     MapSqlParameterSource source;
-    if (operation.equals(OperationType.CREATE)
-        || operation.equals(OperationType.UPDATE)
-        || operation.equals(OperationType.DELETE)) {
-      source = ModelParameterFactory.create(operation, localeType);
+    if (operation.equals(OperationType.FINDBYKEY) || (operation.equals(OperationType.DELETE))) {
+      source = ModelParameterFactory.create(localeType);
+    } else if (operation.equals(OperationType.CREATE) || (operation.equals(OperationType.UPDATE))) {
+      source = ModelParameterFactory.create(localeType);
+      source.addValue("name", localeType.getName());
+      source.addValue("active_flag", localeType.isActive());
     } else {
       // TODO move messaging to localizable file.
       throw new IllegalArgumentException("An illegal operation type was passed to map parameters.");
     }
     // Common parameters
-    source.addValue("name", localeType.getName());
-    source.addValue("active_flag", localeType.isActive());
+
     return source;
 
   }
