@@ -50,6 +50,7 @@ tasks.withType(Checkstyle) {
 
 dependencies {
     compile project(':common-service')
+    compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.0.0-M3'
     testCompile group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.0.0-M3'
     testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.0.0-M3'
