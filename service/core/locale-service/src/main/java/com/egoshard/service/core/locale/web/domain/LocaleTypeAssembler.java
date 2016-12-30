@@ -1,13 +1,13 @@
 package com.egoshard.service.core.locale.web.domain;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import com.egoshard.service.core.locale.domain.LocaleType;
 import com.egoshard.service.core.locale.web.LocaleTypeController;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 /**
  * Assembler to convert object from HTTP resources to Model objects and back.
