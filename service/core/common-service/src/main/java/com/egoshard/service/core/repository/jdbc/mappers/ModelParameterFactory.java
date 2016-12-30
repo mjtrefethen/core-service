@@ -1,7 +1,6 @@
 package com.egoshard.service.core.repository.jdbc.mappers;
 
 import com.egoshard.service.core.domain.Model;
-import com.egoshard.service.core.repository.jdbc.OperationType;
 import com.egoshard.service.core.util.UuidUtils;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
@@ -13,24 +12,31 @@ import java.util.UUID;
 public class ModelParameterFactory {
 
   /**
+   * Creates a new source map.
+   *
+   * @return an empty SQL parameter source.
+   */
+  public static MapSqlParameterSource create() {
+    return new MapSqlParameterSource();
+  }
+
+  /**
    * Creates a source by retrieving a record key from an existing Model.
    *
-   * @param operation data operation to be performed.
    * @param model Model object to retrieve a key from.
-   * @return SQL paramter source populated with a model key.
+   * @return SQL parameter source populated with a model key.
    */
-  public static MapSqlParameterSource create(OperationType operation, Model model) {
+  public static MapSqlParameterSource create(Model model) {
     return create(UuidUtils.toBytes(model.getKey()));
   }
 
   /**
    * Creates a source using a record key as a UUID.
    *
-   * @param operation data operation to be performed.
    * @param key UUID key to populate.
-   * @return SQL paramter source populated with a model key.
+   * @return SQL parameter source populated with a model key.
    */
-  public static MapSqlParameterSource create(OperationType operation, UUID key) {
+  public static MapSqlParameterSource create(UUID key) {
     return create(UuidUtils.toBytes(key));
   }
 
@@ -38,7 +44,7 @@ public class ModelParameterFactory {
    * Method to return a new MapSqlParameterSource from a UUID byte array.
    *
    * @param keyBytes key bytes.
-   * @return SQL paramter source.
+   * @return SQL parameter source.
    */
   private static MapSqlParameterSource create(byte[] keyBytes) {
     return new MapSqlParameterSource("record_key", keyBytes);

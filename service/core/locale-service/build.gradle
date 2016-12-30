@@ -1,0 +1,57 @@
+group 'com.egoshard.service.core'
+version '1.0.0'
+
+apply plugin: 'java'
+apply plugin: 'org.junit.platform.gradle.plugin'
+apply plugin: "findbugs"
+apply plugin: 'checkstyle'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M3'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+findbugs {
+    ignoreFailures = true
+    toolVersion = "3.0.1"
+    reportsDir = file("$project.buildDir/reports/findbugs")
+    effort = "max"
+}
+
+checkstyle {
+    sourceSets = [sourceSets.main]
+    configFile rootProject.file('google_checks.xml')
+    reportsDir = file("$project.buildDir/reports/checkstyle/")
+    ignoreFailures false
+    showViolations true
+    configProperties = [
+            'checkstyle.cache.file': rootProject.file('build/checkstyle.cache'),
+    ]
+    toolVersion = "7.1.1"
+}
+checkstyleTest {
+    enabled = false
+}
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled true
+        html.enabled true
+        html.destination rootProject.file("build/reports/checkstyle.html")
+    }
+}
+
+dependencies {
+    compile project(':common-service')
+    compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.0.0-M3'
+    testCompile group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.0.0-M3'
+    testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.0.0-M3'
+}
