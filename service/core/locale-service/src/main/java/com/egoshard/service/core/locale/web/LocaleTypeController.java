@@ -26,9 +26,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.UUID;
+import javax.ws.rs.core.MediaType;
+
 
 /**
  * REST controller exposing LocaleType operations.

@@ -19,6 +19,9 @@ repositories {
     mavenCentral()
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 findbugs {
     ignoreFailures = true
     toolVersion = "3.0.1"
