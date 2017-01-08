@@ -2,6 +2,7 @@ package com.egoshard.service.core.repository.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
@@ -17,20 +18,22 @@ public abstract class BaseJdbcRepository {
   protected static final String ERROR_MODEL_KEY_NULL = "A null model key was passed to a findByKey data access method. A model key is required for this method to function.";
   protected static final String ERROR_MODEL_ARG_NULL = "A null model was passed to a data access method. A model is required for this method to function.";
 
-  protected NamedParameterJdbcTemplate jdbcTemplate;
+  private NamedParameterJdbcTemplate jdbcTemplate;
 
-  public BaseJdbcRepository() {
+  /**
+   *
+   * @return
+   */
+  public NamedParameterJdbcTemplate getJdbcTemplate() {
+    return jdbcTemplate;
   }
 
   /**
-   * Sets a datasource into the repository and instantiates a NamedParameterJdbcTemplate from it.
    *
-   * @param dataSource datasource to create a JdbcTemplate from.
+   * @param jdbcTemplate
    */
-  @Autowired
-  @Qualifier("dataSource")
-  public void setDataSource(DataSource dataSource) {
-    this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+  protected void setJdbcTemplate(NamedParameterJdbcTemplate jdbcTemplate) {
+    this.jdbcTemplate = jdbcTemplate;
   }
 
 }

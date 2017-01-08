@@ -8,6 +8,8 @@ import com.egoshard.service.core.repository.jdbc.BaseJdbcRepository;
 import com.egoshard.service.core.repository.jdbc.mappers.ModelParameterFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +25,11 @@ public class LocaleTypeJdbcRepository extends BaseJdbcRepository implements Loca
   private static final String RETURN_TYPE = "LocaleType";
   private static Logger LOGGER = LoggerFactory.getLogger(LocaleTypeJdbcRepository.class);
 
+  @Autowired
+  public LocaleTypeJdbcRepository(final NamedParameterJdbcTemplate jdbcTemplate) {
+    setJdbcTemplate(jdbcTemplate);
+  }
+
   /**
    * Method to retrieve a list of all LocaleTypes.
    *
@@ -30,12 +37,12 @@ public class LocaleTypeJdbcRepository extends BaseJdbcRepository implements Loca
    * @return a List of LocaleType objects meeting the specified criteria.
    */
   @Override
-  public List<LocaleType> findAll(boolean includeInactive) {
+  public List<LocaleType> findAll(final boolean includeInactive) {
 
     String sqlSelect = "SELECT record_key, name, active_flag FROM locale_type %s ORDER BY name";
     String sqlWhere = "where active_flag = true";
 
-    List<LocaleType> localeTypeList = jdbcTemplate.query(
+    List<LocaleType> localeTypeList = getJdbcTemplate().query(
         String.format(sqlSelect, includeInactive ? "" : sqlWhere),
         new LocaleTypeRowMapper());
     if (localeTypeList == null || localeTypeList.size() == 0) {
@@ -62,7 +69,7 @@ public class LocaleTypeJdbcRepository extends BaseJdbcRepository implements Loca
 
     String sqlSelect = "SELECT record_key, name, active_flag FROM locale_type WHERE record_key = :record_key ORDER BY name";
     SqlParameterSource parameters = ModelParameterFactory.create(key);
-    List<LocaleType> localeTypeList = jdbcTemplate.query(sqlSelect, parameters, new LocaleTypeRowMapper());
+    List<LocaleType> localeTypeList = getJdbcTemplate().query(sqlSelect, parameters, new LocaleTypeRowMapper());
     if (localeTypeList == null || localeTypeList.size() == 0) {
       String message = String.format(ERROR_MODEL_NOT_FOUND, RETURN_TYPE, key.toString());
       LOGGER.error(message);
@@ -108,7 +115,7 @@ public class LocaleTypeJdbcRepository extends BaseJdbcRepository implements Loca
 
     String sqlDelete = "update locale_type set active_flag = false WHERE record_key = :record_key";
     SqlParameterSource parameters = ModelParameterFactory.create(key);
-    jdbcTemplate.update(sqlDelete, parameters);
+    getJdbcTemplate().update(sqlDelete, parameters);
 
   }
 
@@ -126,7 +133,7 @@ public class LocaleTypeJdbcRepository extends BaseJdbcRepository implements Loca
 
     String sqlInsert = "INSERT into locale_type (record_key, name, active_flag) VALUES (:record_key, :name, :active_flag)";
     SqlParameterSource parameters = ModelParameterFactory.create(localeType);
-    jdbcTemplate.update(sqlInsert, parameters);
+    getJdbcTemplate().update(sqlInsert, parameters);
 
   }
 
@@ -144,7 +151,7 @@ public class LocaleTypeJdbcRepository extends BaseJdbcRepository implements Loca
 
     String sqlUpdate = "UPDATE locale_type set name = :name, active_flag = active_flag where record_key = :record_key";
     SqlParameterSource parameters = ModelParameterFactory.create(localeType);
-    jdbcTemplate.update(sqlUpdate, parameters);
+    getJdbcTemplate().update(sqlUpdate, parameters);
 
   }
 

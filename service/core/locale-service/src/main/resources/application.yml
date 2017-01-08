@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${MYSQL_ADDR}:${MYSQL_PORT}/${MYSQL_DATABASE}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    driverClassName: com.mysql.jdbc.Driver
+    initialize: true
