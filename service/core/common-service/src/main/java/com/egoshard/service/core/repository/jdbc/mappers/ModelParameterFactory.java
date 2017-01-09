@@ -1,10 +1,7 @@
 package com.egoshard.service.core.repository.jdbc.mappers;
 
 import com.egoshard.service.core.domain.Model;
-import com.egoshard.service.core.util.UuidUtils;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-
-import java.util.UUID;
 
 /**
  * Base factory for producting parameter sources from a Model and OperationType.
@@ -27,7 +24,7 @@ public class ModelParameterFactory {
    * @return SQL parameter source populated with a model key.
    */
   public static MapSqlParameterSource create(Model model) {
-    return create(UuidUtils.toBytes(model.getKey()));
+    return create(model.getKey().toString());
   }
 
   /**
@@ -36,19 +33,8 @@ public class ModelParameterFactory {
    * @param key UUID key to populate.
    * @return SQL parameter source populated with a model key.
    */
-  public static MapSqlParameterSource create(UUID key) {
-    return create(UuidUtils.toBytes(key));
+  public static MapSqlParameterSource create(String key) {
+    return new MapSqlParameterSource("record_key", key);
   }
-
-  /**
-   * Method to return a new MapSqlParameterSource from a UUID byte array.
-   *
-   * @param keyBytes key bytes.
-   * @return SQL parameter source.
-   */
-  private static MapSqlParameterSource create(byte[] keyBytes) {
-    return new MapSqlParameterSource("record_key", keyBytes);
-  }
-
 
 }

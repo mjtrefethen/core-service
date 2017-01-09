@@ -15,8 +15,8 @@ public class Model {
   protected final boolean persisted;
 
   /**
-   * Instantiates a new Model object with a random UUID
-   * This operation is intended for use when creating new objects that do not yet have data persistence.
+   * Instantiates a new Model object with a random UUID This operation is intended for use when
+   * creating new objects that do not yet have data persistence.
    */
   public Model() {
     this.key = UUID.randomUUID();
@@ -39,7 +39,7 @@ public class Model {
   /**
    * Instantiates a new Model object using an existing persistence key and a provided state.
    *
-   * @param key    existing persistence key
+   * @param key existing persistence key
    * @param active Model state
    */
   public Model(UUID key, boolean active) {
@@ -55,6 +55,13 @@ public class Model {
    */
   public UUID getKey() {
     return key;
+  }
+
+  /**
+   * Get the string representation of the UUID for this record.
+   */
+  public String getKeyString() {
+    return key.toString();
   }
 
   /**
@@ -93,4 +100,5 @@ public class Model {
   public int hashCode() {
     return Objects.hash(key, active, persisted);
   }
+
 }

@@ -16,7 +16,7 @@ public abstract class ModelResource extends ResourceSupport implements Serializa
 
   @ApiModelProperty(name = "Key",
       value = "Unique 128-bit key value identifying a data model element.",
-      required = false,
+      required = true,
       position = 1)
   private UUID key;
   @ApiModelProperty(name = "Active",
@@ -50,6 +50,15 @@ public abstract class ModelResource extends ResourceSupport implements Serializa
    */
   public UUID getKey() {
     return key;
+  }
+
+  /**
+   * Gets the string representation of the UUID for this resource.
+   *
+   * @return  UUID string.
+   */
+  public String getKeyString() {
+    return key.toString();
   }
 
   /**

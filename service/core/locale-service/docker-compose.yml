@@ -17,6 +17,6 @@ core-locale-service:
     - MYSQL_PASSWORD=password
   build: .
   links:
-    - core-locale-mariadb:mariadb
+    - core-locale-mariadb
   ports:
     - 8080:8080

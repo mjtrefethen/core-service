@@ -24,20 +24,20 @@ public interface LocaleTypeRepository {
    * @param key unique model identifier
    * @return populated LocaleType object
    */
-  LocaleType findByKey(final UUID key);
+  LocaleType findByKey(final String key);
 
   /**
    * Method to create or update an existing LocaleType model.
    *
    * @param localeType model object to save
    */
-  void save(final LocaleType localeType);
+  UUID save(final LocaleType localeType);
 
   /**
    * Method to deactivate an existing LocaleType model.
    *
    * @param key unique model identifier
    */
-  void delete(final UUID key);
+  void delete(final String key);
 
 }

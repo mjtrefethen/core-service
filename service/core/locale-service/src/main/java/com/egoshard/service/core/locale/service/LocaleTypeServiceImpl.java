@@ -7,7 +7,6 @@ import com.egoshard.service.core.event.ReadModelEvent;
 import com.egoshard.service.core.event.ReadModelListEvent;
 import com.egoshard.service.core.event.WriteModelEvent;
 import com.egoshard.service.core.locale.domain.LocaleType;
-
 import com.egoshard.service.core.locale.repository.LocaleTypeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +33,6 @@ public class LocaleTypeServiceImpl implements LocaleTypeService {
     this.localeTypeRepository = localeTypeRepository;
   }
 
-
   /**
    * Method to retrieve an individual LocaleType model.
    *
@@ -43,7 +41,7 @@ public class LocaleTypeServiceImpl implements LocaleTypeService {
    */
   @Override
   public ModelReadEvent<LocaleType> get(ReadModelEvent event) {
-    return new ModelReadEvent<>(localeTypeRepository.findByKey(event.getKey()));
+    return new ModelReadEvent<>(localeTypeRepository.findByKey(event.getKey().toString()));
   }
 
   /**

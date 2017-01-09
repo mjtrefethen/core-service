@@ -21,16 +21,18 @@ public abstract class BaseJdbcRepository {
   private NamedParameterJdbcTemplate jdbcTemplate;
 
   /**
+   * Retrieves a wired JDBC template object from the configured datasource.
    *
-   * @return
+   * @return JDBC template.
    */
   public NamedParameterJdbcTemplate getJdbcTemplate() {
     return jdbcTemplate;
   }
 
   /**
+   * Sets a wired JDBC template object from the configured datasource.
    *
-   * @param jdbcTemplate
+   * @param jdbcTemplate wired JDBC template.
    */
   protected void setJdbcTemplate(NamedParameterJdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;

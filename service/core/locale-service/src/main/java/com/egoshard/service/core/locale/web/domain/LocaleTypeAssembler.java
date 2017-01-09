@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
  */
 public class LocaleTypeAssembler {
 
-
   /**
    * Converts a model to a resource.
    *
