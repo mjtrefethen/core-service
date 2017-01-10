@@ -1,6 +1,6 @@
 rootProject.name = 'service'
 include 'core/common-service'
 findProject(':core/common-service')?.name = 'common-service'
-include 'core:locale-service'
+include 'core/locale-service'
 findProject(':core/locale-service')?.name = 'locale-service'
 

@@ -1,5 +1,6 @@
 package com.egoshard.service.core.web.exception;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
@@ -45,6 +46,7 @@ public class JsonErrorInfo {
    */
   public ModelAndView asModelAndView() {
     MappingJackson2JsonView jsonView = new MappingJackson2JsonView();
+    jsonView.setContentType(MediaType.APPLICATION_JSON_VALUE);
     return new ModelAndView(jsonView, values);
   }
 

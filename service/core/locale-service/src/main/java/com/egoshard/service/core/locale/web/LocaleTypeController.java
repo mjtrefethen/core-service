@@ -143,7 +143,7 @@ public class LocaleTypeController {
       @ApiResponse(code = 404, message = "A LocaleType could not be found for the specified unique identifier")})
   @ResponseStatus(HttpStatus.CREATED)
   @RequestMapping(value = "/locales/types/{key}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON)
-  public void updatePatch(@ApiParam(value = "Unique identifier of the LocaleType to update", required = true) @PathVariable String key, @RequestBody HashMap<String,String> body) {
+  public void updatePatch(@ApiParam(value = "Unique identifier of the LocaleType to update", required = true) @PathVariable String key, @RequestBody HashMap<String, String> body) {
 
   }
 

@@ -3,25 +3,25 @@ package com.egoshard.service.core.web.exception;
 import com.egoshard.service.core.exception.UnauthorizedException;
 import com.egoshard.service.core.repository.exception.ModelNotFoundException;
 import com.egoshard.service.core.repository.exception.ModelNotUniqueException;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 /**
  * Global exception handler to convert caught exceptions to valid HTTP error codes and messages.
  */
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler extends ExceptionHandlerExceptionResolver {
 
   /**
    * Handles all base Exceptions and translates them to Internal Server HTTP errors.
    *
    * @param request HttpServletRequest object
-   * @param ex      the exception to be handled
+   * @param ex the exception to be handled
    * @return model and view containing a generic server error.
    */
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
    * Handles thrown IllegalArgumentExceptions and translates then to Bad Request HTTP errors.
    *
    * @param request HttpServletRequest object
-   * @param ex      the exception to be handled
+   * @param ex the exception to be handled
    * @return model and view containing a generic server error.
    */
   @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
    * Handles invalid casts for resource identifiers and translates then to Bad Request HTTP errors.
    *
    * @param request HttpServletRequest object
-   * @param ex      the exception to be handled
+   * @param ex the exception to be handled
    * @return model and view containing a generic server error.
    */
   @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
    * Handles exception instances where no resource can be found for specified criteria.
    *
    * @param request HttpServletRequest object
-   * @param ex      the exception to be handled
+   * @param ex the exception to be handled
    * @return model and view containing a generic server error.
    */
   @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -71,10 +71,11 @@ public class GlobalExceptionHandler {
   }
 
   /**
-   * Handles exception instances where multiple resources are found for criteria that should only return one.
+   * Handles exception instances where multiple resources are found for criteria that should only
+   * return one.
    *
    * @param request HttpServletRequest object
-   * @param ex      the exception to be handled
+   * @param ex the exception to be handled
    * @return model and view containing a generic server error.
    */
   @ResponseStatus(HttpStatus.CONFLICT)
@@ -87,7 +88,7 @@ public class GlobalExceptionHandler {
    * Handles exception instances where access to a requested resource has been denied.
    *
    * @param request HttpServletRequest object
-   * @param ex      the exception to be handled
+   * @param ex the exception to be handled
    * @return model and view containing a generic server error.
    */
   @ResponseStatus(HttpStatus.UNAUTHORIZED)
@@ -100,7 +101,7 @@ public class GlobalExceptionHandler {
    * Assembles request and exception information into a ModelAndView.
    *
    * @param request HttpServletRequest object
-   * @param ex      the exception to be handled
+   * @param ex the exception to be handled
    * @return model and view.
    */
   private ModelAndView assembleView(HttpServletRequest request, Exception ex) {
