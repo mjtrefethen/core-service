@@ -45,7 +45,8 @@ public class LocaleTypeRepositoryImpl implements LocaleTypeRepository {
    */
   @Override
   public LocaleType findByKey(String key) {
-    return null;
+    String HQL = "SELECT lt FROM LocaleType lt WHERE lt.key = :key";
+    return entityManager.createQuery(HQL, LocaleType.class).setParameter("key", key).getSingleResult();
   }
 
   /**
