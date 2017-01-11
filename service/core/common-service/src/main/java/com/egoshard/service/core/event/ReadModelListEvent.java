@@ -14,7 +14,7 @@ public class ReadModelListEvent extends BaseRequestEvent {
    *
    * @param executorKey unique identifier for the user requesting access.
    */
-  public ReadModelListEvent(final UUID executorKey) {
+  public ReadModelListEvent(final String executorKey) {
     super(executorKey);
   }
 
@@ -24,7 +24,7 @@ public class ReadModelListEvent extends BaseRequestEvent {
    * @param executorKey     unique identifier for the user requesting access.
    * @param includeInactive boolean value indicating if inactive Model objects should ne returned.
    */
-  public ReadModelListEvent(final UUID executorKey, final boolean includeInactive) {
+  public ReadModelListEvent(final String executorKey, final boolean includeInactive) {
     super(executorKey);
     this.includeInactive = includeInactive;
   }

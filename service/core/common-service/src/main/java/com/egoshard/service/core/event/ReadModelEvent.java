@@ -7,7 +7,7 @@ import java.util.UUID;
  */
 public class ReadModelEvent extends BaseRequestEvent {
 
-  private final UUID key;
+  private final String key;
 
   /**
    * Constructor
@@ -15,7 +15,7 @@ public class ReadModelEvent extends BaseRequestEvent {
    * @param executorKey unique identifier for the user requesting access.
    * @param key         identifier for the model to be retrieved.
    */
-  public ReadModelEvent(final UUID executorKey, final UUID key) {
+  public ReadModelEvent(final String executorKey, final String key) {
     super(executorKey);
     this.key = key;
   }
@@ -25,7 +25,7 @@ public class ReadModelEvent extends BaseRequestEvent {
    *
    * @return unique identifier.
    */
-  public UUID getKey() {
+  public String getKey() {
     return key;
   }
 

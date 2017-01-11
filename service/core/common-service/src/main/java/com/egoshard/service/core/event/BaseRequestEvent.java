@@ -10,14 +10,14 @@ import java.util.UUID;
  */
 public class BaseRequestEvent extends BaseEvent {
 
-  UUID executorKey;
+  String executorKey;
 
   /**
    * Base constructor identifying the UUID of the executor.
    *
    * @param executorKey unique identifier of the user or system requesting access.
    */
-  public BaseRequestEvent(UUID executorKey) {
+  public BaseRequestEvent(String executorKey) {
     this.executorKey = executorKey;
   }
 
@@ -26,7 +26,7 @@ public class BaseRequestEvent extends BaseEvent {
    *
    * @return UUID key representing the
    */
-  public UUID getExecutorKey() {
+  public String getExecutorKey() {
     return executorKey;
   }
 

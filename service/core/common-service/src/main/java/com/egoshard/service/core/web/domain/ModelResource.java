@@ -18,7 +18,7 @@ public abstract class ModelResource extends ResourceSupport implements Serializa
       value = "Unique 128-bit key value identifying a data model element.",
       required = true,
       position = 1)
-  private UUID key;
+  private String key;
   @ApiModelProperty(name = "Active",
       value = "Value indicating if a model is in an active state.",
       required = false,
@@ -36,7 +36,7 @@ public abstract class ModelResource extends ResourceSupport implements Serializa
    *
    * @param key unique public identifier.
    */
-  public ModelResource(final UUID key) {
+  public ModelResource(final String key) {
     if (key == null) {
       throw new IllegalArgumentException("A null unique identifier cannot be used during Resource creation.");
     }
@@ -48,17 +48,8 @@ public abstract class ModelResource extends ResourceSupport implements Serializa
    *
    * @return unique identifier for this record object.
    */
-  public UUID getKey() {
+  public String getKey() {
     return key;
-  }
-
-  /**
-   * Gets the string representation of the UUID for this resource.
-   *
-   * @return  UUID string.
-   */
-  public String getKeyString() {
-    return key.toString();
   }
 
   /**

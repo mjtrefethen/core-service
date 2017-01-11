@@ -10,6 +10,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 CREATE DATABASE IF NOT EXISTS core_db;
+USE core_db;
 
 DROP TABLE IF EXISTS `cd_region`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

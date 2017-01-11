@@ -17,7 +17,7 @@ public class WriteModelEvent<T extends Model> extends BaseRequestEvent {
    * @param executorKey unique identifier for the user requesting access.
    * @param model       object to be created.
    */
-  public WriteModelEvent(final UUID executorKey, final T model) {
+  public WriteModelEvent(final String executorKey, final T model) {
     super(executorKey);
     this.model = model;
   }

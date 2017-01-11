@@ -1,13 +1,17 @@
 package com.egoshard.service.core.locale;
 
-import java.util.Collections;
+import java.util.Properties;
+import javax.sql.DataSource;
+import org.hibernate.ejb.HibernatePersistence;
+import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.MediaType;
-import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
-import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -19,9 +23,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  *
  */
+@EnableTransactionManagement
+@EnableJpaRepositories("com.egoshard.service.core.locale")
 @EnableSwagger2
 @SpringBootApplication()
 public class Application {
+
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
   }
@@ -40,7 +47,7 @@ public class Application {
    * API Info as it appears on the swagger-ui page
    */
   private ApiInfo apiInfo() {
-    ApiInfo apiInfo = new ApiInfo(
+    return new ApiInfo(
         "Core Locale API",
         "Common core API functionality for interacting with Locale region information.",
         "",
@@ -49,34 +56,44 @@ public class Application {
         "",
         ""
     );
-    return apiInfo;
   }
 
-  /*
-     * Configure ContentNegotiatingViewResolver
-     */
-//  @Bean
-//  public ContentNegotiatingViewResolver contentViewResolver() throws Exception {
-//    ContentNegotiatingViewResolver contentViewResolver = new ContentNegotiatingViewResolver();
-//    ContentNegotiationManagerFactoryBean contentNegotiationManager = new ContentNegotiationManagerFactoryBean();
-//    contentNegotiationManager.addMediaType("json", MediaType.APPLICATION_JSON);
-//    contentNegotiationManager.setDefaultContentType(MediaType.APPLICATION_JSON);
-//    contentViewResolver.setContentNegotiationManager(contentNegotiationManager.getObject());
-//    contentViewResolver.setDefaultViews(Collections.singletonList(new MappingJackson2JsonView()));
-//    return contentViewResolver;
-//  }
+  @Bean
+  public DataSource dataSource() {
+    DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-//  @Bean
-//  @ConditionalOnBean(ViewResolver.class)
-//  @ConditionalOnMissingBean(name = "viewResolver", value = ContentNegotiatingViewResolver.class)
-//  public ContentNegotiatingViewResolver viewResolver(BeanFactory beanFactory) {
-//    ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
-//    resolver.setContentNegotiationManager(
-//        beanFactory.getBean(ContentNegotiationManager.class));
-//    // ContentNegotiatingViewResolver uses all the other view resolvers to locate
-//    // a view so it should have a high precedence
-//    resolver.setOrder(Ordered.HIGHEST_PRECEDENCE);
-//    return resolver;
-//  }
+    dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+    dataSource.setUrl("jdbc:mysql://core-locale-mariadb:3306/core_db");
+    dataSource.setUsername("core_db_user");
+    dataSource.setPassword("password");
+
+    return dataSource;
+  }
+
+  @Bean
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+    entityManagerFactoryBean.setDataSource(dataSource());
+    entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
+    entityManagerFactoryBean.setPackagesToScan("com.egoshard.service.core.locale");
+
+    entityManagerFactoryBean.setJpaProperties(hibProperties());
+
+    return entityManagerFactoryBean;
+  }
+
+  private Properties hibProperties() {
+    Properties properties = new Properties();
+    properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
+    properties.put("hibernate.show_sql", true);
+    return properties;
+  }
+
+  @Bean
+  public JpaTransactionManager transactionManager() {
+    JpaTransactionManager transactionManager = new JpaTransactionManager();
+    transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+    return transactionManager;
+  }
 
 }

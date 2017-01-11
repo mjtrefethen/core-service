@@ -70,7 +70,7 @@ public class LocaleTypeController {
   @ResponseBody
   public ResponseEntity<List<LocaleTypeResource>> getList() {
 
-    ModelListReadEvent<LocaleType> event = localeTypeService.getList(new ReadModelListEvent(UUID.randomUUID()));
+    ModelListReadEvent<LocaleType> event = localeTypeService.getList(new ReadModelListEvent(UUID.randomUUID().toString()));
     return new ResponseEntity<>(LocaleTypeAssembler.toResourceList(event.getModelList()), HttpStatus.OK);
 
   }
@@ -96,7 +96,7 @@ public class LocaleTypeController {
       throw new IllegalArgumentException("The identifier specified appears to be invalid, please verify and resubmit the request.");
     }
 
-    ModelReadEvent<LocaleType> event = localeTypeService.get(new ReadModelEvent(UUID.randomUUID(), UUID.fromString(key)));
+    ModelReadEvent<LocaleType> event = localeTypeService.get(new ReadModelEvent(UUID.randomUUID().toString(), key));
     return new ResponseEntity<>(LocaleTypeAssembler.toResource(event.getModel()), HttpStatus.OK);
 
   }
@@ -132,8 +132,8 @@ public class LocaleTypeController {
    *
    * @param resource
    */
-  private UUID create(final LocaleTypeResource resource) {
-    ModelWrittenEvent<LocaleType> event = localeTypeService.create(new WriteModelEvent<>(UUID.randomUUID(), LocaleTypeAssembler.toModel(resource)));
+  private String create(final LocaleTypeResource resource) {
+    ModelWrittenEvent<LocaleType> event = localeTypeService.create(new WriteModelEvent<>(UUID.randomUUID().toString(), LocaleTypeAssembler.toModel(resource)));
     return event.getModel().getKey();
   }
 
@@ -177,7 +177,7 @@ public class LocaleTypeController {
 
   }
 
-  private UUID update(final LocaleTypeResource resource) {
+  private String update(final LocaleTypeResource resource) {
     return null;
   }
 

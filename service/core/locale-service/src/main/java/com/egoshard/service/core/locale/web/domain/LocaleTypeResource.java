@@ -24,7 +24,7 @@ public class LocaleTypeResource extends ModelResource {
    *
    * @param key unique public identifier.
    */
-  public LocaleTypeResource(UUID key) {
+  public LocaleTypeResource(String key) {
     super(key);
   }
 

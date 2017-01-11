@@ -1,19 +1,19 @@
 package com.egoshard.service.core.locale.repository;
 
 import com.egoshard.service.core.locale.domain.LocaleType;
-
 import java.util.List;
-import java.util.UUID;
+import org.springframework.data.repository.Repository;
 
 /**
  * Repository interface for interacting with LocaleType data access functionality.
  */
-public interface LocaleTypeRepository {
+public interface LocaleTypeRepository extends Repository<LocaleType, Long> {
 
   /**
    * Method to retrieve a list of all LocaleTypes.
    *
-   * @param includeInactive boolean value indicating that returned data should include inactive models.
+   * @param includeInactive boolean value indicating that returned data should include inactive
+   * models.
    * @return a List of LocaleType objects meeting the specified criteria.
    */
   List<LocaleType> findAll(final boolean includeInactive);
@@ -31,13 +31,13 @@ public interface LocaleTypeRepository {
    *
    * @param localeType model object to save
    */
-  UUID save(final LocaleType localeType);
+  String saveModel(final LocaleType localeType);
 
   /**
    * Method to deactivate an existing LocaleType model.
    *
    * @param key unique model identifier
    */
-  void delete(final String key);
+  void deleteModel(final String key);
 
 }

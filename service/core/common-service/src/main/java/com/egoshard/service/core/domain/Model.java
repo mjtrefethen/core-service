@@ -2,26 +2,37 @@ package com.egoshard.service.core.domain;
 
 import java.util.Objects;
 import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 /**
  * Base abstract representation of a database record. All extensions of Model will have a UUID
  * identifier and a String representation of a human readable name. Extending classes must implement
  * getters and setters for a Name property.
  */
+@MappedSuperclass
 public class Model {
 
-  protected final UUID key;
-  protected final boolean active;
-  protected final boolean persisted;
+  @Id
+  @GeneratedValue
+  @Column(name = "record_id")
+  private Long id;
+
+  @Column(name = "record_key")
+  private String key;
+
+  @Column(name = "active_flag")
+  private boolean active;
 
   /**
    * Instantiates a new Model object with a random UUID This operation is intended for use when
    * creating new objects that do not yet have data persistence.
    */
   public Model() {
-    this.key = UUID.randomUUID();
+    this.key = UUID.randomUUID().toString();
     this.active = true;
-    this.persisted = false;
   }
 
   /**
@@ -30,22 +41,31 @@ public class Model {
    *
    * @param key existing persistence key
    */
-  public Model(UUID key) {
+  public Model(String key) {
     this.key = key;
     this.active = true;
-    this.persisted = true;
   }
 
   /**
-   * Instantiates a new Model object using an existing persistence key and a provided state.
    *
-   * @param key existing persistence key
-   * @param active Model state
+   * @param key
+   * @param active
    */
-  public Model(UUID key, boolean active) {
+  public Model(String key, boolean active) {
     this.key = key;
     this.active = active;
-    this.persisted = true;
+  }
+
+  /**
+   *
+   * @param id
+   * @param key
+   * @param isActive
+   */
+  protected Model(Long id, String key, boolean isActive) {
+    this.id = id;
+    this.key = key;
+    this.active = isActive;
   }
 
   /**
@@ -53,24 +73,8 @@ public class Model {
    *
    * @return unique identifier for this record object.
    */
-  public UUID getKey() {
+  public String getKey() {
     return key;
-  }
-
-  /**
-   * Get the string representation of the UUID for this record.
-   */
-  public String getKeyString() {
-    return key.toString();
-  }
-
-  /**
-   * Gets the persisted state of the model.
-   *
-   * @return true if the object has been persisted to data storage
-   */
-  public boolean isPersisted() {
-    return persisted;
   }
 
   /**
@@ -92,13 +96,12 @@ public class Model {
     }
     Model model = (Model) obj;
     return active == model.active
-        && persisted == model.persisted
         && Objects.equals(key, model.key);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(key, active, persisted);
+    return Objects.hash(key, active);
   }
 
 }
